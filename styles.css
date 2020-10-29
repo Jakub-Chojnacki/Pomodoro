@@ -7,6 +7,7 @@
 body {
     font-family: 'Roboto', sans-serif;
     color: black;
+    background-color: #f2f2f2;
 }
 #settings {
     font-size: 2em;
