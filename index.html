@@ -8,13 +8,29 @@
     <title>Pomodoro timer</title>
 </head>
 <body>
-    <nav><i id="settings" class="fas fa-cog"></i></nav>
+
+    <div id="overlay">
+        <nav><i id="cog_close" class="fas fa-cog" onclick="document.getElementById('overlay').style.visibility='hidden'"></i></nav>
+        <div id="settings">
+            <h2>Main timer</h2> <input type="text" id="main" min="1" max="60" value="25" >
+            <h2>Short break time</h2> <input type="number" id="short" min="1" max="60">
+            <h2>Long break time</h2> <input type="number" id="long" min="1" max="60">
+            <h2>Number of cycles</h2><input type="number" id="cycles" min="1" max="99">
+            <button id="guzik">abc</button>
+        </div>
+    </div>
+    
+        
+    <div class="cog"><i id="cog_open" class="fas fa-cog" onclick="document.getElementById('overlay').style.visibility='visible'"></i></div>
     <div class="container">
+        
        <div class="countdown">
            <h1>some text</h1>
        </div>
         
     </div>
+    
     <script src="timer.js"></script>
+    
 </body>
 </html>
