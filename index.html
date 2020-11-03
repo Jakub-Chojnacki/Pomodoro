@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/388e5ba49c.js" crossorigin="anonymous"></script>
     <title>Pomodoro timer</title>
 </head>
@@ -12,12 +13,13 @@
     <div id="overlay">
         <nav><i id="cog_close" class="fas fa-cog" onclick="document.getElementById('overlay').style.visibility='hidden'"></i></nav>
         <div id="settings">
-            <h2>Main timer</h2> <input type="number" id="main" min="1" max="60" value="25"  >
-            <h2>Short break time</h2> <input type="text" id="short" min="1" max="60" value="5">
-            <h2>Long break time</h2> <input type="text" id="long" min="1" max="60" value="15">
-            <h2>Number of cycles</h2><input type="text" id="cycles" min="1" max="99" value="3">
+            <h2>Main timer</h2> <input type="number" id="main" min="1" max="60" value="25"  > <span >Current value : <span id="current_timer">25</span></span>
+            <h2>Short break time</h2> <input type="number" id="short" min="1" max="60" value="5"> <span>Current value : <span id="current_short">5</span></span>
+            <h2>Long break time</h2> <input type="number" id="long" min="1" max="60" value="15"> <span>Current value : <span id="current_long">15</span></span>
+            <h2>Number of cycles</h2><input type="number" id="cycles" min="1" max="99" value="3"> <span>Current value : <span id="current_cycles">3</span></span>
             
         </div>
+        <button id="save">Save</button>
         <button id="default">Default Settings</button>
     </div>
     
@@ -26,7 +28,15 @@
     <div class="container">
         
        <div class="countdown">
-           <h1>some text</h1>
+           <span class="menu">
+           <button id="normal">Timer</button>
+           <button id="short_break">Short</button>
+           <button id="long_break">Long</button>
+           </span>
+           <h1 id="clock"></h1>
+           <div class="button_container">
+           <button id="start">Start</button>
+           <button id="stop">Stop</button></div>
        </div>
         
     </div>
