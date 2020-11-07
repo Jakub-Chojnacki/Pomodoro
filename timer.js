@@ -14,6 +14,8 @@ const shortButton = document.getElementById('short_break');
 const longButton = document.getElementById('long_break');
 const normalButton = document.getElementById('normal');
 const stopButton = document.getElementById('stop');
+const resetButton = document.getElementById('reset');
+const cog = document.getElementById('cog_open');
 // zamiana czasu z ustawień na Int
 parsedTimer = parseInt(spanTimer.textContent) * 60;
 parsedLong = parseInt(spanLong.textContent) * 60;
@@ -35,11 +37,11 @@ function DisplayBeforeStart(mode){
 }
 
 
-window.addEventListener('load',function(){DisplayBeforeStart(parsedTimer)});
+window.addEventListener('load',function(){DisplayBeforeStart(parsedTimer); y = 1});
 normalButton.addEventListener('click', function(){DisplayBeforeStart(parsedTimer); z = parsedTimer
- });
-shortButton.addEventListener('click', function(){DisplayBeforeStart(parsedShort); z = parsedShort;});
-longButton.addEventListener('click', function(){DisplayBeforeStart(parsedLong);z=parsedLong;} );
+ y = 1;clearInterval(myTimer);startButton.style.pointerEvents = 'auto';});
+shortButton.addEventListener('click', function(){DisplayBeforeStart(parsedShort); z = parsedShort; y = 2; clearInterval(myTimer);startButton.style.pointerEvents = 'auto';});
+longButton.addEventListener('click', function(){DisplayBeforeStart(parsedLong);z=parsedLong;y = 3;clearInterval(myTimer);startButton.style.pointerEvents = 'auto';}  );
 
 
 function startTimer(duration, display) {
@@ -61,14 +63,17 @@ function startTimer(duration, display) {
       display.textContent = minutes + ":" + seconds; 
       minutes = parseInt(minutes);
       seconds = parseInt(seconds);
-
-
+      console.log(diff);
       if (diff <= 0) {
           // dodać 1 żeby odliczanie zaczynało się od pełnych minut, a nie np. 4:59
           start = Date.now() + 1000;
       }
+      if(diff === 0){
+        clearInterval(myTimer);
+        startButton.style.pointerEvents = 'auto';
+      }
   };
-  // najpierw zdeklarowanei funkcji żeby nie czekać 1 interwalu zanim się włączy
+  // najpierw zadeklarowanie funkcji żeby nie czekać 1 interwalu zanim się włączy
   timer();
   myTimer = setInterval(timer, 1000);
   stopButton.addEventListener('click', function(){
@@ -97,6 +102,16 @@ function reset_settings(){
    parsedTimer = parseInt(spanTimer.textContent) * 60;
   parsedLong = parseInt(spanLong.textContent) * 60;
   parsedShort =parseInt(spanShort.textContent) * 60;
+  if(y === 2){
+    z = parsedShort;
+    DisplayBeforeStart(z);
+  }else if(y === 1) {
+    z = parsedTimer;
+    DisplayBeforeStart(z);
+  }else if(y === 3){
+    z = parsedLong;
+    DisplayBeforeStart(z);
+  };
   
 
 } 
@@ -133,9 +148,36 @@ function updateCyclesValue(e){
 }
 
 function saveSettings(){
-  
  parsedTimer = parseInt(spanTimer.textContent) * 60;
 parsedLong = parseInt(spanLong.textContent) * 60;
 parsedShort =parseInt(spanShort.textContent) * 60;
+if(y === 2){
+  z = parsedShort;
+  DisplayBeforeStart(z);
+}else if(y === 1) {
+  z = parsedTimer;
+  DisplayBeforeStart(z);
+}else if(y === 3){
+  z = parsedLong;
+  DisplayBeforeStart(z);
+  
+};
+clearInterval(myTimer);startButton.style.pointerEvents = 'auto';
+
 }
 save.addEventListener('click', saveSettings);
+resetButton.addEventListener('click', function reset(){
+  clearInterval(myTimer);
+      startButton.style.pointerEvents = 'auto';
+  if(y === 2){
+    z = parsedShort;
+    DisplayBeforeStart(z);
+  }else if(y === 1) {
+    z = parsedTimer;
+    DisplayBeforeStart(z);
+  }else if(y === 3){
+    z = parsedLong;
+    DisplayBeforeStart(z);
+  };
+  clearInterval(myTimer);startButton.style.pointerEvents = 'auto';
+})

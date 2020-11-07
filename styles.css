@@ -6,8 +6,8 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    color: black;
-    background-color: #f2f2f2;
+    color:white;
+    background:#353b48;
     overflow: hidden;
 }
 .fa-cog{
@@ -24,6 +24,7 @@ nav {
     display: flex;
     flex-direction: row-reverse;
     align-self: flex-start;
+    
 }
 
 .countdown {
@@ -33,11 +34,9 @@ nav {
 }
 #clock {
     margin: 100px;
-    font-size: 4em;
+    font-size: 5em;
     text-align: center;
-    padding-top: 20px;
-    border: 1px solid black;
-    padding-bottom: 20px;
+    border-bottom: 2px solid silver;
 }
 .container{
     display: flex;
@@ -54,44 +53,97 @@ nav {
     z-index: 1;
     top: 0;
     left: 0;
-    background: gray;
+    background:#353b48;
     text-align: center;
     visibility: hidden;
 
 }
 
 #settings h2 {
-    padding: 2em;
-    font-size: 2em;
+    padding: 1em;
+    font-size: 1.8rem;
 }
 
 .cog {
     display: flex;
     flex-direction: row-reverse;
+    color:#3498db;
 }
 
 button{
-    border: none;
     margin: 20px;
-    padding: 24px;
-    width: 220px;
-    letter-spacing: 2px;
+    width: 200px;
+    height: 60px;
     text-transform: uppercase;
     font-family: "montserrat", sans-serif;
-    border-radius: 6px;
     cursor: pointer;
-    color: #fff;
-    background:#0652DD;
+    color:#3498db;
+    border: 2px solid;
+    background:none;
+    font-size: 16px;
+    font-weight: 700;
+    position: relative;
+
+}
+
+button::before, button::after{
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 4px;
+    background: #353b48;
+    transform: skewX(50deg);
+    transition: .4s linear;
+}
+
+button::before {
+    top: -4px;
+    left: 10%;
+}
+button::after {
+    bottom: -4px;
+    right: 10%;
+}
+
+button:hover::before{
+    left: 80%;
+
+}
+button:hover::after{
+    right: 80%;
+
 }
 
 #start {
     align-self: center;
     justify-self: center;
-    
+   
+
 }
 
 input {
     padding: 8px;
     font-size: 1em;
     text-align: center;
+    
+}
+
+
+.button_small {
+    width: 160px;
+    padding: 16px;
+}
+
+span {
+    margin: 15px;
+}
+.settings-buttons{
+    margin-top: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    .settings-buttons {
+        display: grid;
+        justify-items: center;
+    }
 }
