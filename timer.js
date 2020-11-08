@@ -9,6 +9,7 @@ const clock = document.getElementById('clock');
 const spanTimer = document.getElementById('current_timer');
 const spanLong = document.getElementById('current_long');
 const spanShort = document.getElementById('current_short');
+const spanCycles = document.getElementById('current_cycles');
 const startButton = document.getElementById('start');
 const shortButton = document.getElementById('short_break');
 const longButton = document.getElementById('long_break');
@@ -16,13 +17,24 @@ const normalButton = document.getElementById('normal');
 const stopButton = document.getElementById('stop');
 const resetButton = document.getElementById('reset');
 const cog = document.getElementById('cog_open');
+const checkbox = document.getElementById('check_cycles');
+const cyclesRemaining = document.getElementById('cycles_remaining');
+const cog_close = document.getElementById('cog_close');
 // zamiana czasu z ustawień na Int
-parsedTimer = parseInt(spanTimer.textContent) * 60;
-parsedLong = parseInt(spanLong.textContent) * 60;
-parsedShort =parseInt(spanShort.textContent) * 60;
+let parsedTimer = parseInt(spanTimer.textContent) * 60;
+let parsedLong = parseInt(spanLong.textContent) * 60;
+let parsedShort =parseInt(spanShort.textContent) * 60;
+let parsedCycles = parseInt(spanCycles.textContent);
 let z = parsedTimer;
+let activeButton = normalButton;
+activeButton.style.background ='#145E8F';
+ activeButton.style.color ='#f3f3f3'
 
 
+
+
+cog_close.addEventListener('click', function(){document.getElementById('overlay').style.visibility='hidden'});
+cog.addEventListener('click', function(){document.getElementById('overlay').style.visibility='visible'});
 
 function DisplayBeforeStart(mode){
   let x = mode;
@@ -36,10 +48,14 @@ function DisplayBeforeStart(mode){
   
 }
 
+normalButton.addEventListener('click',function(){activeButton.style.background ='none'; activeButton.style.color ='#3498db';activeButton = normalButton; activeButton.style.background ='#145E8F'; activeButton.style.color ='#f3f3f3'});
+shortButton.addEventListener('click',function(){activeButton.style.background ='none'; activeButton.style.color ='#3498db';activeButton = shortButton; activeButton.style.background ='#145E8F'; activeButton.style.color ='#f3f3f3'});
+longButton.addEventListener('click',function(){activeButton.style.background ='none'; activeButton.style.color ='#3498db';activeButton = longButton; activeButton.style.background ='#145E8F'; activeButton.style.color ='#f3f3f3'});
 
 window.addEventListener('load',function(){DisplayBeforeStart(parsedTimer); y = 1});
 normalButton.addEventListener('click', function(){DisplayBeforeStart(parsedTimer); z = parsedTimer
- y = 1;clearInterval(myTimer);startButton.style.pointerEvents = 'auto';});
+ y = 1;clearInterval(myTimer);startButton.style.pointerEvents = 'auto'; ;
+ });
 shortButton.addEventListener('click', function(){DisplayBeforeStart(parsedShort); z = parsedShort; y = 2; clearInterval(myTimer);startButton.style.pointerEvents = 'auto';});
 longButton.addEventListener('click', function(){DisplayBeforeStart(parsedLong);z=parsedLong;y = 3;clearInterval(myTimer);startButton.style.pointerEvents = 'auto';}  );
 
@@ -63,7 +79,7 @@ function startTimer(duration, display) {
       display.textContent = minutes + ":" + seconds; 
       minutes = parseInt(minutes);
       seconds = parseInt(seconds);
-      console.log(diff);
+     
       if (diff <= 0) {
           // dodać 1 żeby odliczanie zaczynało się od pełnych minut, a nie np. 4:59
           start = Date.now() + 1000;
@@ -71,6 +87,8 @@ function startTimer(duration, display) {
       if(diff === 0){
         clearInterval(myTimer);
         startButton.style.pointerEvents = 'auto';
+        autoStart();
+        
       }
   };
   // najpierw zadeklarowanie funkcji żeby nie czekać 1 interwalu zanim się włączy
@@ -89,8 +107,14 @@ startButton.addEventListener('click', function(){startTimer(z,clock);
 
 
 });
-
-
+function remainingBeforeStart(){
+  if(checkbox.checked == true){
+    cyclesRemaining.textContent = `Cycles remaining : ${parsedCycles}`;
+  }else if(checkbox.checked == false){
+    cyclesRemaining.textContent = "";
+  }
+}
+checkbox.addEventListener('change', remainingBeforeStart);
 
 // Funkcja do resetu ustawień
 
@@ -111,9 +135,11 @@ function reset_settings(){
   }else if(y === 3){
     z = parsedLong;
     DisplayBeforeStart(z);
+    
   };
   
-
+  clearInterval(myTimer);
+  startButton.style.pointerEvents = 'auto';
 } 
 
 default_settings.addEventListener('click', reset_settings);
@@ -181,3 +207,17 @@ resetButton.addEventListener('click', function reset(){
   };
   clearInterval(myTimer);startButton.style.pointerEvents = 'auto';
 })
+
+function autoStart(){
+     if(parsedCycles > 0 && checkbox.checked == true){
+      z = parsedShort;
+      startTimer(z, clock);
+      --parsedCycles;
+      cyclesRemaining.textContent = `Cycles remaining : ${parsedCycles}`;
+     }else if(parsedCycles == 0 && checkbox.checked == true) {
+      z = parsedLong;
+      startTimer(z,clock);
+      parsedCycles = parseInt(spanCycles.textContent);
+      cyclesRemaining.textContent = `Cycles remaining : ${parsedCycles}`;
+     }
+}

@@ -11,12 +11,13 @@
 <body>
 
     <div id="overlay">
-        <nav><i id="cog_close" class="fas fa-cog" onclick="document.getElementById('overlay').style.visibility='hidden'"></i></nav>
+        <nav><i id="cog_close" class="fas fa-cog" ></i></nav>
         <div id="settings">
             <h2>Main timer</h2> <input type="number" id="main" min="1" max="60" value="25"  > <span >Current value : <span id="current_timer">25</span></span>
             <h2>Short break time</h2> <input type="number" id="short" min="1" max="60" value="5"> <span>Current value : <span id="current_short">5</span></span>
             <h2>Long break time</h2> <input type="number" id="long" min="1" max="60" value="15"> <span>Current value : <span id="current_long">15</span></span>
-            <h2>Number of cycles</h2><input type="number" id="cycles" min="1" max="99" value="3"> <span>Current value : <span id="current_cycles">3</span></span>
+            <h2>Number of cycles</h2><input type="number" id="cycles" min="1" max="99" value="3"> <span>Current value : <span id="current_cycles">3</span></span> 
+            <div id="checkbox_div"><span>Auto start pomodoros and breaks?</span><input type="checkbox" name="" id="check_cycles"></div>
             
         </div>
         <div class="settings-buttons">
@@ -25,21 +26,21 @@
     </div>
     
         
-    <div class="cog"><i id="cog_open" class="fas fa-cog" onclick="document.getElementById('overlay').style.visibility='visible'"></i></div>
+    <div class="cog"><i id="cog_open" class="fas fa-cog" ></i></div>
     <div class="container">
         
        <div class="countdown">
-           <span class="menu">
+           <div class="menu">
            <button id="normal">Timer</button>
            <button id="short_break">Short</button>
            <button id="long_break">Long</button>
-           </span>
+           </div>
            <h1 id="clock"></h1>
            <div class="button_container">
            <button id="start" class="button_small">Start</button>
            <button id="stop" class="button_small">Stop</button>
            <button id="reset" class="button_small">Reset</button></div>
-           
+           <p id="cycles_remaining"></p>
            
        </div>
         

@@ -2,8 +2,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 }
-
+#normal:focus,#short_break:focus,#long_break:focus {
+    outline: none;
+}
 body {
     font-family: 'Roboto', sans-serif;
     color:white;
@@ -142,9 +145,31 @@ span {
     margin-top: 20px;
 }
 
+#checkbox_div{
+    margin: 20px;
+}
+
 @media only screen and (max-width: 600px) {
     .settings-buttons {
         display: grid;
         justify-items: center;
     }
+
+    .menu{
+        display: grid;
+        grid-template-rows: 3;
+        grid-template-columns: 1;
+        align-items: center;
+        justify-items: center;
+    }
+
+    button {
+        width: 160px;
+        height: 48px;
+    }
+
+    .button_small {
+        width: 140px;
+    }
 }
+
